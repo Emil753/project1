@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+    
+</head>
+<body>
+
+    <div id="hearts-container"></div>
+
+    <nav>
+        <button onclick="loadPage('/page1')">Страница 1</button>
+        <button onclick="loadPage('/page2')">Страница 2</button>
+    </nav>
+
+    <div id="content">
+        {% include 'page1.html' %}
+    </div>
+    
+    
+    <script>
+        function loadPage(page) {
+            fetch(page)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("content").innerHTML = data;
+                })
+                .catch(error => console.error("Ошибка загрузки:", error));
+        }
+    </script>
+    
+</body>
+</html>
